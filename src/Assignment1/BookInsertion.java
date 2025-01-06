@@ -56,7 +56,7 @@ public class BookInsertion {
                 {
                 	FileWriter fw = new FileWriter("book_list.txt",true);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(b.bookId+"*"+b.authorNames+"*"+b.publication+"*"+b.dateOfPublication+"*"+b.priceOfBook+"*"+b.totalQuantityToOrder+"*"+b.totalCost);
+                    bw.write(b.bookId+"*"+b.bookName+"*"+b.authorNames+"*"+b.publication+"*"+b.dateOfPublication+"*"+b.priceOfBook+"*"+b.totalQuantityToOrder+"*"+b.totalCost);
                     bw.newLine();
                     bw.close();
                     fw.close();
@@ -77,7 +77,6 @@ public class BookInsertion {
             }
         });
 
-        // Add components to the panel
         panel.add(labelBookId);
         panel.add(textBookId);
 
