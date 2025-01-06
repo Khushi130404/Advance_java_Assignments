@@ -1,7 +1,5 @@
 package Assignment1;
 
-import java.util.Date;
-
 public class Book {
 	int bookId;
 	String bookName;
@@ -9,6 +7,8 @@ public class Book {
 	String publication;
 	String dateOfPublication;
 	float priceOfBook;
+	int totalQuantityToOrder;
+	float totalCost;
 	
 	Book(){}
 	
@@ -87,9 +87,5 @@ public class Book {
 	public void setTotalCost(float totalCost) {
 		this.totalCost = totalCost;
 	}
-
-	int totalQuantityToOrder;
-	float totalCost;
-	
 	
 }
