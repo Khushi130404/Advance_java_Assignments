@@ -28,18 +28,14 @@ public class Book_Display {
             String line = null;
             while((line=br.readLine())!=null)
             {
-            	String[] parts = line.split("\\*");
-                Book b = new Book(
-                    Integer.parseInt(parts[0]),   
-                    parts[1],                     
-                    parts[2],                     
-                    parts[3],                     
-                    parts[4],                     
-                    Float.parseFloat(parts[5]),   
-                    Integer.parseInt(parts[6]),   
-                    Float.parseFloat(parts[7])    
-                );
-            	books.add(b);
+            	StringTokenizer st = new StringTokenizer(line,"*");
+            	String sss;
+            	while((sss=st.nextToken())!=null)
+            	{
+            		System.out.println(sss);
+            	}
+//            	Book b = new Book(Integer.parseInt(st.nextToken()),st.nextToken(),st.nextToken(),st.nextToken(),st.nextToken(),Float.parseFloat(st.nextToken()),Integer.parseInt(st.nextToken()),Float.parseFloat(st.nextToken()));
+//            	books.add(b);
             }
         	br.readLine();
             br.close();
@@ -49,9 +45,9 @@ public class Book_Display {
 			exp.printStackTrace();
 		}
         
-//        books.add(new Book(1, "Java Programming", "James Gosling", "Sun Microsystems", "01-01-1995", 500.0f, 10, 5000.0f));
-//        books.add(new Book(2, "Effective Java", "Joshua Bloch", "Addison-Wesley", "05-05-2008", 650.0f, 8, 5200.0f));
-//        books.add(new Book(3, "Head First Java", "Kathy Sierra, Bert Bates", "O'Reilly Media", "02-06-2005", 450.0f, 15, 6750.0f));
+        books.add(new Book(1, "Java Programming", "James Gosling", "Sun Microsystems", "01-01-1995", 500.0f, 10, 5000.0f));
+        books.add(new Book(2, "Effective Java", "Joshua Bloch", "Addison-Wesley", "05-05-2008", 650.0f, 8, 5200.0f));
+        books.add(new Book(3, "Head First Java", "Kathy Sierra, Bert Bates", "O'Reilly Media", "02-06-2005", 450.0f, 15, 6750.0f));
 
         String[] columnNames = {"Book ID", "Book Name", "Author Names", "Publication", "Date of Publication", "Price of Book", "Total Quantity to Order", "Total Cost"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
