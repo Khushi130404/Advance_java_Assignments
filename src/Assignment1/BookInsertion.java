@@ -63,7 +63,7 @@ public class BookInsertion {
                 Book b = new Book(Integer.parseInt(textBookId.getText()), textBookName.getText(), textAuthorNames.getText(), textPublication.getText(), textDateOfPublication.getText(), Float.parseFloat(textPriceOfBook.getText()), Integer.parseInt(textTotalQuantity.getText()), Float.parseFloat(textTotalCost.getText()));
 
                 try {
-                    FileWriter fw = new FileWriter("book_list.txt", true);
+                    FileWriter fw = new FileWriter("book_list.dat", true);
                     BufferedWriter bw = new BufferedWriter(fw);
                     bw.write(b.bookId + "*" + b.bookName + "*" + b.authorNames + "*" + b.publication + "*" + b.dateOfPublication + "*" + b.priceOfBook + "*" + b.totalQuantityToOrder + "*" + b.totalCost);
                     bw.newLine();

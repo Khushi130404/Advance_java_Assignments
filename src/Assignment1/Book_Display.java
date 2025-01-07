@@ -17,13 +17,13 @@ public class Book_Display {
     public static void main(String[] args) {
 
         JFrame j = new JFrame("Book Display");
-        j.setSize(1300, 800);
+        j.setSize(1500, 800);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         j.setLocationRelativeTo(null);
 
         List<Book> books = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("book_list.txt");
+            FileReader fr = new FileReader("book_list.dat");
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
@@ -71,10 +71,10 @@ public class Book_Display {
         table.setRowHeight(40);
         
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 18));
-        header.setBackground(new Color(70, 130, 180));  
+        header.setFont(new Font("Arial", Font.BOLD, 20));
+        header.setBackground(new Color(90, 99, 156));  
         header.setForeground(Color.WHITE);
-        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+        header.setPreferredSize(new Dimension(header.getWidth(), 45));
 
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,7 +89,7 @@ public class Book_Display {
                                                            boolean hasFocus, int row, int column) {
                 Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (row % 2 == 0) {
-                    component.setBackground(new Color(245, 245, 245));
+                    component.setBackground(new Color(229, 217, 242));
                 } else {
                     component.setBackground(Color.WHITE);
                 }
@@ -98,7 +98,7 @@ public class Book_Display {
         });
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(scrollPane, BorderLayout.CENTER);
