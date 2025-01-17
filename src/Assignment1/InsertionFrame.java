@@ -28,12 +28,12 @@ public class InsertionFrame extends JFrame
 
 	public InsertionFrame() 
 	{
-		headerLabel = new JLabel("Insert New Book Details", JLabel.CENTER);
-		panel = new JPanel();	
-		label = new JLabel[labelText.length];
-		textField = new JTextField[labelText.length];
-		submitButton = new JButton("Insert Book");
-		footerPanel = new JPanel();
+		this.headerLabel = new JLabel("Insert New Book Details", JLabel.CENTER);
+		this.panel = new JPanel();	
+		this.label = new JLabel[labelText.length];
+		this.textField = new JTextField[labelText.length];
+		this.submitButton = new JButton("Insert Book");
+		this.footerPanel = new JPanel();
 		createFrame();
 	}
 	
