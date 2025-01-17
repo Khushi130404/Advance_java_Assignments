@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-
 public class DisplayFrame extends JFrame {
     List<Book> books;
     JPanel mainPanel;

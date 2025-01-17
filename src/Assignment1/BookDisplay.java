@@ -2,7 +2,7 @@ package Assignment1;
 
 import java.util.List;
 
-public class Book_Display {
+public class BookDisplay {
     public static void main(String[] args) {
 
        BookList booklist = new BookList();
