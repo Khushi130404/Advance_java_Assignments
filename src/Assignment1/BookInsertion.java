@@ -11,9 +11,13 @@ public class BookInsertion
 {
     public static void main(String[] args) 
     {	
-    	JPanel panel = new JPanel();
-    	JFrame frame = createFrame(panel);
-        String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
+    	JFrame frame = createFrame();
+        frame.setVisible(true);
+    }
+    
+    static void createLabel(JFrame frame,JPanel panel)
+    {
+    	String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
         JLabel label[] = new JLabel[labelText.length];
         JTextField textField[] = new JTextField[labelText.length];
         
@@ -23,14 +27,11 @@ public class BookInsertion
         	textField[i] = new JTextField();
         }
         JButton submitButton = submitButton(frame,textField);
-        
         addingComponentsToPanel(panel,label,textField);
         addingComponentsToFrame(frame,panel,submitButton);
-
-        frame.setVisible(true);
     }
     
-    static JFrame createFrame(JPanel panel)
+    static JFrame createFrame()
     {
         JFrame frame = new JFrame("Book Insertion Form");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,8 +45,10 @@ public class BookInsertion
         frame.add(headerLabel, BorderLayout.NORTH);
 
         // Form Panel
+    	JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(9, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        createLabel(frame,panel);
         return frame;
     }
     
