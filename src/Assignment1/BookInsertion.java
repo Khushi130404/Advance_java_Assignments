@@ -28,27 +28,14 @@ public class BookInsertion {
 
         String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
         JLabel label[] = new JLabel[labelText.length];
-        
+        JTextField textField[] = new JTextField[labelText.length];
         
         for(int i=0; i<label.length; i++)
         {
         	label[i] = new JLabel(labelText[i]);
+        	textField[i] = new JTextField();
         }
         
-        JTextField textBookId = new JTextField();
-
-        JTextField textBookName = new JTextField();
-
-        JTextField textAuthorNames = new JTextField();
-
-        JTextField textPublication = new JTextField();
-
-        JTextField textDateOfPublication = new JTextField();
-
-        JTextField textPriceOfBook = new JTextField();
-
-        JTextField textTotalQuantity = new JTextField();
-
         JButton submitButton = new JButton("Insert Book");
         submitButton.setBackground(new Color(72, 191, 227));
         submitButton.setForeground(Color.WHITE);
@@ -59,12 +46,12 @@ public class BookInsertion {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Book b = new Book(Integer.parseInt(textBookId.getText()), textBookName.getText(), textAuthorNames.getText(), textPublication.getText(), textDateOfPublication.getText(), Float.parseFloat(textPriceOfBook.getText()), Integer.parseInt(textTotalQuantity.getText()));
+                Book b = new Book(Integer.parseInt(textField[0].getText()), textField[1].getText(), textField[2].getText(), textField[3].getText(), textField[4].getText(), Float.parseFloat(textField[5].getText()), Integer.parseInt(textField[6].getText()));
 
                 try {
                     FileWriter fw = new FileWriter("book_list.dat", true);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(b.getBookId() + "*" + b.getBookName() + "*" + b.getAuthorNames() + "*" + b.getPublication() + "*" + b.getDateOfPublication() + "*" + b.getPriceOfBook() + "*" + b.getTotalQuantityToOrder()+"\n");
+                    bw.write(b.getBookId() + "*" + b.getBookName() + "*" + b.getAuthorNames() + "*" + b.getPublication() + "*" + b.getDateOfPublication() + "*" + b.getPriceOfBook() + "*" + b.getTotalQuantityToOrder());
                     bw.newLine();
                     bw.close();
                     fw.close();
@@ -78,22 +65,9 @@ public class BookInsertion {
         for(int i=0; i<label.length; i++)
         {
         	panel.add(label[i]);
+        	panel.add(textField[i]);
         }
         
-        
-        panel.add(textBookId);
-
-        panel.add(textBookName);
-
-        panel.add(textAuthorNames);
-
-        panel.add(textPublication);
-
-        panel.add(textDateOfPublication);
-
-        panel.add(textPriceOfBook);
-
-        panel.add(textTotalQuantity);
 
         // Footer Panel for Button
         JPanel footerPanel = new JPanel();
