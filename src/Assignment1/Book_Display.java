@@ -1,10 +1,6 @@
 package Assignment1;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,13 +9,11 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Book_Display {
-
     public static void main(String[] args) {
-
-        JFrame j = new JFrame("Book Display");
-        j.setSize(1500, 800);
-        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setLocationRelativeTo(null);
+        JFrame frame = new JFrame("Book Display");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
 
         List<Book> books = new ArrayList<>();
         try {
@@ -46,65 +40,32 @@ public class Book_Display {
             exp.printStackTrace();
         }
 
-        String[] columnNames = {
-            "Book ID", "Book Name", "Author Names", "Publication",
-            "Date of Publication", "Price of Book", "Total Quantity to Order", "Total Cost"
-        };
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(new Color(230, 230, 250));
 
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         for (Book book : books) {
-            Object[] rowData = {
-                book.getBookId(),
-                book.getBookName(),
-                book.getAuthorNames(),
-                book.getPublication(),
-                book.getDateOfPublication(),
-                book.getPriceOfBook(),
-                book.getTotalQuantityToOrder(),
-                book.getTotalCost()
-            };
-            tableModel.addRow(rowData);
+            JPanel bookPanel = new JPanel();
+            bookPanel.setLayout(new GridLayout(4, 2, 10, 5));
+            bookPanel.setBorder(BorderFactory.createTitledBorder("Book ID: " + book.getBookId()));
+            bookPanel.setBackground(Color.WHITE);
+            
+            bookPanel.add(new JLabel("Book Name: " + book.getBookName()));
+            bookPanel.add(new JLabel("Author: " + book.getAuthorNames()));
+            bookPanel.add(new JLabel("Publication: " + book.getPublication()));
+            bookPanel.add(new JLabel("Date: " + book.getDateOfPublication()));
+            bookPanel.add(new JLabel("Price: " + book.getPriceOfBook()));
+            bookPanel.add(new JLabel("Quantity: " + book.getTotalQuantityToOrder()));
+            bookPanel.add(new JLabel("Total Cost: " + book.getTotalCost()));
+            
+            mainPanel.add(bookPanel);
+            mainPanel.add(Box.createVerticalStrut(10));
         }
 
-        JTable table = new JTable(tableModel);
-        table.setFont(new Font("Arial", Font.PLAIN, 17));
-        table.setRowHeight(40);
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        frame.add(scrollPane);
         
-        JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 20));
-        header.setBackground(new Color(90, 99, 156));  
-        header.setForeground(Color.WHITE);
-        header.setPreferredSize(new Dimension(header.getWidth(), 45));
-
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        headerRenderer.setFont(new Font("Arial", Font.BOLD, 18));
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-        }
-
-        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                                                           boolean hasFocus, int row, int column) {
-                Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (row % 2 == 0) {
-                    component.setBackground(new Color(229, 217, 242));
-                } else {
-                    component.setBackground(Color.WHITE);
-                }
-                return component;
-            }
-        });
-
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(scrollPane, BorderLayout.CENTER);
-        panel.setBackground(new Color(230, 230, 250));
-
-        j.add(panel);
-        j.setVisible(true);
+        frame.setVisible(true);
     }
 }
