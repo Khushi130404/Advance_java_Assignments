@@ -47,9 +47,6 @@ public class BookInsertion {
         JLabel labelTotalQuantity = new JLabel("Total Quantity to Order:");
         JTextField textTotalQuantity = new JTextField();
 
-        JLabel labelTotalCost = new JLabel("Total Cost:");
-        JTextField textTotalCost = new JTextField();
-
         JButton submitButton = new JButton("Insert Book");
         submitButton.setBackground(new Color(72, 191, 227));
         submitButton.setForeground(Color.WHITE);
@@ -60,7 +57,7 @@ public class BookInsertion {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Book b = new Book(Integer.parseInt(textBookId.getText()), textBookName.getText(), textAuthorNames.getText(), textPublication.getText(), textDateOfPublication.getText(), Float.parseFloat(textPriceOfBook.getText()), Integer.parseInt(textTotalQuantity.getText()), Float.parseFloat(textTotalCost.getText()));
+                Book b = new Book(Integer.parseInt(textBookId.getText()), textBookName.getText(), textAuthorNames.getText(), textPublication.getText(), textDateOfPublication.getText(), Float.parseFloat(textPriceOfBook.getText()), Integer.parseInt(textTotalQuantity.getText()));
 
                 try {
                     FileWriter fw = new FileWriter("book_list.dat", true);
@@ -106,9 +103,6 @@ public class BookInsertion {
 
         panel.add(labelTotalQuantity);
         panel.add(textTotalQuantity);
-
-        panel.add(labelTotalCost);
-        panel.add(textTotalCost);
 
         // Footer Panel for Button
         JPanel footerPanel = new JPanel();

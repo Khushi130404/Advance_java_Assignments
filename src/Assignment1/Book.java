@@ -12,7 +12,7 @@ public class Book {
 	
 	Book(){}
 	
-	Book(int bookId,String bookName,String authorNames,String publication,String dateOfPublication,float priceOfBook,int totalQuantityToOrder,float totalCost)
+	Book(int bookId,String bookName,String authorNames,String publication,String dateOfPublication,float priceOfBook,int totalQuantityToOrder)
 	{
 		this.bookId = bookId;
 		this.bookName = bookName;

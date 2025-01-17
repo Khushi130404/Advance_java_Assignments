@@ -29,8 +29,7 @@ public class Book_Display {
                     st.nextToken(),
                     st.nextToken(),
                     Float.parseFloat(st.nextToken()),
-                    Integer.parseInt(st.nextToken()),
-                    Float.parseFloat(st.nextToken())
+                    Integer.parseInt(st.nextToken())
                 );
                 books.add(b);
             }
