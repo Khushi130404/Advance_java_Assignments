@@ -69,6 +69,9 @@ class BookPanel extends JPanel {
                     parent.revalidate();
                     parent.repaint();
                 }
+                BookDeletion bookDeletion = new BookDeletion(book);
+                bookDeletion.deleteBook();
+                System.out.println("Del");
             }
         });
 
@@ -78,6 +81,7 @@ class BookPanel extends JPanel {
 
     JLabel[] createLabels() {
         return new JLabel[]{
+                new JLabel("Book ID: " + book.getBookId()),
                 new JLabel("Book Name: " + book.getBookName()),
                 new JLabel("Author: " + book.getAuthorNames()),
                 new JLabel("Publication: " + book.getPublication()),
@@ -85,7 +89,12 @@ class BookPanel extends JPanel {
                 new JLabel("Price: " + book.getPriceOfBook()),
                 new JLabel("Quantity: " + book.getTotalQuantityToOrder()),
                 new JLabel("Total Cost: " + book.getTotalCost()),
-                new JLabel("Book ID: " + book.getBookId())
         };
     }
+    
+    Book getBook()
+    {
+    	return book;
+    }
+    
 }
