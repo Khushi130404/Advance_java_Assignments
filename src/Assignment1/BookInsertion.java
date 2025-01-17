@@ -7,67 +7,73 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-public class BookInsertion 
+class DisplayFrame extends JFrame
 {
-    public static void main(String[] args) 
-    {	
-    	JFrame frame = createFrame();
-        frame.setVisible(true);
-    }
-    
-    static void createLabel(JFrame frame,JPanel panel)
-    {
-    	String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
-        JLabel label[] = new JLabel[labelText.length];
-        JTextField textField[] = new JTextField[labelText.length];
-        
-        for(int i=0; i<label.length; i++)
+	JLabel headerLabel;
+	JPanel panel;
+	String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
+    JLabel label[];
+    JTextField textField[];
+    JButton submitButton;
+    JPanel footerPanel;
+
+	public DisplayFrame() 
+	{
+		headerLabel = new JLabel("Insert New Book Details", JLabel.CENTER);
+		panel = new JPanel();	
+		label = new JLabel[labelText.length];
+		textField = new JTextField[labelText.length];
+		submitButton = new JButton("Insert Book");
+		footerPanel = new JPanel();
+		createFrame();
+	}
+	
+	void createFrame()
+	{
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(700, 600);
+        this.setLayout(new BorderLayout(10, 10));
+        createComponents();
+        this.add(headerLabel, BorderLayout.NORTH);
+        addingComponentsToPanel();
+        this.add(panel, BorderLayout.CENTER);
+        this.add(footerPanel, BorderLayout.SOUTH);
+        this.setVisible(true);
+	}
+	
+	void createComponents()
+	{
+		createHeader();
+        createPanel();
+        createLabel();
+        createSubmitButton();
+        createFooter();
+	}
+	
+	void createHeader()
+	{
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+	}
+
+	void createPanel()
+	{
+        panel.setLayout(new GridLayout(9, 2, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+	}
+	
+	void createLabel()
+	{
+		for(int i=0; i<label.length; i++)
         {
         	label[i] = new JLabel(labelText[i]);
         	textField[i] = new JTextField();
         }
-        JButton submitButton = submitButton(frame,textField);
-        addingComponentsToPanel(panel,label,textField);
-        addingComponentsToFrame(frame,panel,submitButton);
-    }
-    
-    static JFrame createFrame()
-    {
-        JFrame frame = new JFrame("Book Insertion Form");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 600);
-        frame.setLayout(new BorderLayout(10, 10));
-
-        // Header
-        JLabel headerLabel = new JLabel("Insert New Book Details", JLabel.CENTER);
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        headerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        frame.add(headerLabel, BorderLayout.NORTH);
-
-        // Form Panel
-    	JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(9, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
-        createLabel(frame,panel);
-        return frame;
-    }
-    
-    static void showMessageDialog(Book b,JFrame frame)
-    {
-    	JOptionPane.showMessageDialog(frame, "Book Inserted:\n" +
-                "Book ID: " + b.getBookId() + "\n" +
-                "Book Name: " + b.getBookName() + "\n" +
-                "Author Names: " + b.getAuthorNames() + "\n" +
-                "Publication: " + b.getPublication() + "\n" +
-                "Date of Publication: " + b.getDateOfPublication() + "\n" +
-                "Price of Book: " + b.getPriceOfBook() + "\n" +
-                "Total Quantity to Order: " + b.getTotalQuantityToOrder() + "\n" +
-                "Total Cost: " + b.getTotalCost());
-    }
-    
-    static JButton submitButton(JFrame frame,JTextField textField[])
-    {
-    	JButton submitButton = new JButton("Insert Book");
+	}
+	
+	
+	void createSubmitButton()
+	{
         submitButton.setBackground(new Color(72, 191, 227));
         submitButton.setForeground(Color.WHITE);
         submitButton.setFont(new Font("Arial", Font.BOLD, 16));
@@ -89,30 +95,44 @@ public class BookInsertion
                     exp.printStackTrace();
                 }
 
-                showMessageDialog(b,frame);
+                showMessageDialog(b);
             }});
-        return submitButton;
-    }
-    
-    static void addingComponentsToFrame(JFrame frame,JPanel panel,JButton submitButton)
+	}
+	
+    void showMessageDialog(Book b)
     {
-        // Footer Panel for Button
-        JPanel footerPanel = new JPanel();
-        footerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-        footerPanel.add(submitButton);
-
-        // Adding Components to Frame
-        frame.add(panel, BorderLayout.CENTER);
-        frame.add(footerPanel, BorderLayout.SOUTH);
-
+    	JOptionPane.showMessageDialog(this, "Book Inserted:\n" +
+                "Book ID: " + b.getBookId() + "\n" +
+                "Book Name: " + b.getBookName() + "\n" +
+                "Author Names: " + b.getAuthorNames() + "\n" +
+                "Publication: " + b.getPublication() + "\n" +
+                "Date of Publication: " + b.getDateOfPublication() + "\n" +
+                "Price of Book: " + b.getPriceOfBook() + "\n" +
+                "Total Quantity to Order: " + b.getTotalQuantityToOrder() + "\n" +
+                "Total Cost: " + b.getTotalCost());
     }
-    
-    static void addingComponentsToPanel(JPanel panel,JLabel label[],JTextField textField[])
+
+	void createFooter()
+	{
+	    footerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+	    footerPanel.add(submitButton);
+	}
+	
+    void addingComponentsToPanel()
     {
     	for(int i=0; i<label.length; i++)
         {
         	panel.add(label[i]);
         	panel.add(textField[i]);
         }
+    }
+
+}
+
+public class BookInsertion 
+{
+    public static void main(String[] args) 
+    {	
+    	DisplayFrame frame = new DisplayFrame();
     }
 }
