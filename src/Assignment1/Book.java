@@ -12,7 +12,7 @@ public class Book {
 	
 	Book(){}
 	
-	Book(int bookId,String bookName,String authorNames,String publication,String dateOfPublication,float priceOfBook,int totalQuantityToOrder,float totalCost)
+	Book(int bookId,String bookName,String authorNames,String publication,String dateOfPublication,float priceOfBook,int totalQuantityToOrder)
 	{
 		this.bookId = bookId;
 		this.bookName = bookName;
@@ -21,7 +21,7 @@ public class Book {
 		this.dateOfPublication = dateOfPublication;
 		this.priceOfBook = priceOfBook;
 		this.totalQuantityToOrder = totalQuantityToOrder;
-		this.totalCost = totalCost;
+		this.totalCost = totalQuantityToOrder*priceOfBook;
 	}
 	
 	public int getBookId() {
@@ -70,6 +70,7 @@ public class Book {
 
 	public void setPriceOfBook(float priceOfBook) {
 		this.priceOfBook = priceOfBook;
+		this.totalCost = priceOfBook*getTotalQuantityToOrder();
 	}
 
 	public int getTotalQuantityToOrder() {
@@ -78,14 +79,11 @@ public class Book {
 
 	public void setTotalQuantityToOrder(int totalQuantityToOrder) {
 		this.totalQuantityToOrder = totalQuantityToOrder;
+		this.totalCost = totalQuantityToOrder*getPriceOfBook();
 	}
 
 	public float getTotalCost() {
 		return totalCost;
-	}
-
-	public void setTotalCost(float totalCost) {
-		this.totalCost = totalCost;
 	}
 	
 }
