@@ -26,25 +26,27 @@ public class BookInsertion {
         panel.setLayout(new GridLayout(9, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        JLabel labelBookId = new JLabel("Book ID:");
+        String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
+        JLabel label[] = new JLabel[labelText.length];
+        
+        
+        for(int i=0; i<label.length; i++)
+        {
+        	label[i] = new JLabel(labelText[i]);
+        }
+        
         JTextField textBookId = new JTextField();
 
-        JLabel labelBookName = new JLabel("Book Name:");
         JTextField textBookName = new JTextField();
 
-        JLabel labelAuthorNames = new JLabel("Author Names:");
         JTextField textAuthorNames = new JTextField();
 
-        JLabel labelPublication = new JLabel("Publication:");
         JTextField textPublication = new JTextField();
 
-        JLabel labelDateOfPublication = new JLabel("Date of Publication:");
         JTextField textDateOfPublication = new JTextField();
 
-        JLabel labelPriceOfBook = new JLabel("Price of Book:");
         JTextField textPriceOfBook = new JTextField();
 
-        JLabel labelTotalQuantity = new JLabel("Total Quantity to Order:");
         JTextField textTotalQuantity = new JTextField();
 
         JButton submitButton = new JButton("Insert Book");
@@ -62,7 +64,7 @@ public class BookInsertion {
                 try {
                     FileWriter fw = new FileWriter("book_list.dat", true);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(b.bookId + "*" + b.bookName + "*" + b.authorNames + "*" + b.publication + "*" + b.dateOfPublication + "*" + b.priceOfBook + "*" + b.totalQuantityToOrder + "*" + b.totalCost);
+                    bw.write(b.getBookId() + "*" + b.getBookName() + "*" + b.getAuthorNames() + "*" + b.getPublication() + "*" + b.getDateOfPublication() + "*" + b.getPriceOfBook() + "*" + b.getTotalQuantityToOrder()+"\n");
                     bw.newLine();
                     bw.close();
                     fw.close();
@@ -70,38 +72,27 @@ public class BookInsertion {
                     exp.printStackTrace();
                 }
 
-                JOptionPane.showMessageDialog(frame, "Book Inserted:\n" +
-                        "Book ID: " + b.bookId + "\n" +
-                        "Book Name: " + b.bookName + "\n" +
-                        "Author Names: " + b.authorNames + "\n" +
-                        "Publication: " + b.publication + "\n" +
-                        "Date of Publication: " + b.dateOfPublication + "\n" +
-                        "Price of Book: " + b.priceOfBook + "\n" +
-                        "Total Quantity to Order: " + b.totalQuantityToOrder + "\n" +
-                        "Total Cost: " + b.totalCost);
-            }
-        });
+                showMessageDialog(b,frame);
+            }});
 
-        // Adding Components to Panel
-        panel.add(labelBookId);
+        for(int i=0; i<label.length; i++)
+        {
+        	panel.add(label[i]);
+        }
+        
+        
         panel.add(textBookId);
 
-        panel.add(labelBookName);
         panel.add(textBookName);
 
-        panel.add(labelAuthorNames);
         panel.add(textAuthorNames);
 
-        panel.add(labelPublication);
         panel.add(textPublication);
 
-        panel.add(labelDateOfPublication);
         panel.add(textDateOfPublication);
 
-        panel.add(labelPriceOfBook);
         panel.add(textPriceOfBook);
 
-        panel.add(labelTotalQuantity);
         panel.add(textTotalQuantity);
 
         // Footer Panel for Button
@@ -115,5 +106,23 @@ public class BookInsertion {
         frame.add(footerPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
+    }
+    
+    static void showMessageDialog(Book b,JFrame frame)
+    {
+    	JOptionPane.showMessageDialog(frame, "Book Inserted:\n" +
+                "Book ID: " + b.getBookId() + "\n" +
+                "Book Name: " + b.getBookName() + "\n" +
+                "Author Names: " + b.getAuthorNames() + "\n" +
+                "Publication: " + b.getPublication() + "\n" +
+                "Date of Publication: " + b.getDateOfPublication() + "\n" +
+                "Price of Book: " + b.getPriceOfBook() + "\n" +
+                "Total Quantity to Order: " + b.getTotalQuantityToOrder() + "\n" +
+                "Total Cost: " + b.getTotalCost());
+    }
+    
+    static void addingComponentsToPanel(Panel panel)
+    {
+    	
     }
 }
