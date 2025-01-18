@@ -5,7 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-class BookPanel extends JPanel {
+class BookPanel extends JPanel 
+{
     Book book;
     JPanel detailsPanel;
     JPanel buttonPanel;
@@ -13,7 +14,8 @@ class BookPanel extends JPanel {
     JButton deleteButton;
     JLabel labels[];
 
-    BookPanel(Book book) {
+    BookPanel(Book book) 
+    {
         this.book = book;
         setLayout(new BorderLayout(10, 5)); 
         detailsPanel = new JPanel(new GridLayout(4, 2, 25, 15));
@@ -24,7 +26,8 @@ class BookPanel extends JPanel {
         createBookPanel();
     }
 
-    void createBookPanel() {
+    void createBookPanel() 
+    {
         setBackground(new Color(255, 255, 240));
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(180, 180, 250), 3),
@@ -33,7 +36,8 @@ class BookPanel extends JPanel {
         detailsPanel.setBackground(new Color(255, 255, 240));
         buttonPanel.setBackground(new Color(255, 255, 240));
 
-        for (JLabel label : labels) {
+        for (JLabel label : labels) 
+        {
             label.setFont(new Font("Arial", Font.BOLD, 14));
             detailsPanel.add(label);
         }
@@ -43,7 +47,8 @@ class BookPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    void updateDeleteButton() {
+    void updateDeleteButton() 
+    {
         updateButton.setBackground(new Color(173, 216, 230));
         deleteButton.setBackground(new Color(255, 160, 122));
 
@@ -53,25 +58,32 @@ class BookPanel extends JPanel {
         updateButton.setPreferredSize(new Dimension(300, 40));
         deleteButton.setPreferredSize(new Dimension(300, 40));
 
-        updateButton.addActionListener(new ActionListener() {
+        updateButton.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 JOptionPane.showMessageDialog(null, "Update button clicked for Book ID: " + book.getBookId());
             }
         });
 
-        deleteButton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                Container parent = getParent();
-                if (parent != null) {
-                    parent.remove(BookPanel.this);
-                    parent.revalidate();
-                    parent.repaint();
-                }
+            public void actionPerformed(ActionEvent e) 
+            {    
                 BookDeletion bookDeletion = new BookDeletion(book);
-                bookDeletion.deleteBook();
-                System.out.println("Del");
+                if(bookDeletion.showDeleteConfirmation()==JOptionPane.YES_OPTION)
+                {
+                	bookDeletion.deleteBook();
+                	Container parent = getParent();
+                    if (parent != null) 
+                    {
+                        parent.remove(BookPanel.this);
+                        parent.revalidate();
+                        parent.repaint();
+                    }
+                }
             }
         });
 
@@ -79,8 +91,10 @@ class BookPanel extends JPanel {
         buttonPanel.add(deleteButton);
     }
 
-    JLabel[] createLabels() {
-        return new JLabel[]{
+    JLabel[] createLabels() 
+    {
+        return new JLabel[]
+        {
                 new JLabel("Book ID: " + book.getBookId()),
                 new JLabel("Book Name: " + book.getBookName()),
                 new JLabel("Author: " + book.getAuthorNames()),
