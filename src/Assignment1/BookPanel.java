@@ -64,6 +64,7 @@ class BookPanel extends JPanel
             public void actionPerformed(ActionEvent e) 
             {
                 JOptionPane.showMessageDialog(null, "Update button clicked for Book ID: " + book.getBookId());
+                UpdateFrame updateFrame = new UpdateFrame(book);
             }
         });
 
