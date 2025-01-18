@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class BookDeletion 
 {
 	BookList bookList;
@@ -21,13 +23,18 @@ public class BookDeletion
 		books = bookList.readBookList();
 	}
 	
-	void deleteBook()
+	public int showDeleteConfirmation() 
 	{
-//		books.remove(book);
-		writeFile();
-	}
+        return JOptionPane.showConfirmDialog(
+            null, 
+            "Are you sure you want to remove this book ?", 
+            "Confirm Deletion", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.WARNING_MESSAGE
+        );
+    }
 	
-	void writeFile() 
+	void deleteBook() 
 	{
 	    try  
 	    {
@@ -36,7 +43,8 @@ public class BookDeletion
 	    	
 	        for (Book b : books) 
 	        {
-	        	if(b.equals(book)) continue;
+	        	if(b.bookId == book.bookId) continue;
+	      
 	            bufferedWriter.write(b.getBookId() + "*" + 
 	                         b.getBookName() + "*" + 
 	                         b.getAuthorNames() + "*" + 
