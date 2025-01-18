@@ -78,7 +78,7 @@ public class UpdateFrame extends JFrame
 
 	void createPanel()
 	{
-        panel.setLayout(new GridLayout(9, 2, 10, 10));
+        panel.setLayout(new GridLayout(7, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 	}
 	
@@ -119,9 +119,15 @@ public class UpdateFrame extends JFrame
             {
                 Book b = new Book(Integer.parseInt(textField[0].getText()), textField[1].getText(), textField[2].getText(), textField[3].getText(), textField[4].getText(), Float.parseFloat(textField[5].getText()), Integer.parseInt(textField[6].getText()));
                 updateBook(b);
-            }});
-    	JOptionPane.showMessageDialog(this,"Book Updated Successfully...!");
+                showMessageDialog();
+            }
+        });
 	}
+	
+	void showMessageDialog()
+    {
+    	JOptionPane.showMessageDialog(this, "Book Updated Successfully...!");
+    }
 	
 	void updateBook(Book b)
 	{

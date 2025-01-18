@@ -107,6 +107,12 @@ class BookPanel extends JPanel
         };
     }
     
+    public void refreshFrame() 
+    {
+        this.revalidate();
+        this.repaint();
+    }
+    
     Book getBook()
     {
     	return book;

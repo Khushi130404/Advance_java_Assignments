@@ -67,7 +67,7 @@ public class InsertionFrame extends JFrame
 
 	void createPanel()
 	{
-        panel.setLayout(new GridLayout(9, 2, 10, 10));
+        panel.setLayout(new GridLayout(7, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 	}
 	
