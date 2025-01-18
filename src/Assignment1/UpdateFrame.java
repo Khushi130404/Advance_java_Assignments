@@ -7,7 +7,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,8 +19,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class InsertionFrame extends JFrame
+public class UpdateFrame extends JFrame
 {
+	Book book;
+	List<Book> books;
+	BookList bookList;
+    File file;
 	JLabel headerLabel;
 	JPanel panel;
 	String labelText[] = {"Book ID:","Book Name:","Author Names:","Publication:","Date of Publication:","Price of Book:","Total Quantity to Order:"};
@@ -25,18 +32,22 @@ public class InsertionFrame extends JFrame
     JTextField textField[];
     JButton submitButton;
     JPanel footerPanel;
-
-	public InsertionFrame() 
+    
+	public UpdateFrame(Book book) 
 	{
-		this.headerLabel = new JLabel("Insert New Book Details", JLabel.CENTER);
+		this.book = book;
+		this.bookList = new BookList();
+		this.books = bookList.readBookList();
+		this.file = new File("book_list.dat");
+		this.headerLabel = new JLabel("Book Details", JLabel.CENTER);
 		this.panel = new JPanel();	
 		this.label = new JLabel[labelText.length];
 		this.textField = new JTextField[labelText.length];
-		this.submitButton = new JButton("Insert Book");
+		this.submitButton = new JButton("Update Book");
 		this.footerPanel = new JPanel();
 		createFrame();
 	}
-	
+
 	void createFrame()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +89,19 @@ public class InsertionFrame extends JFrame
         	label[i] = new JLabel(labelText[i]);
         	textField[i] = new JTextField();
         }
+		createTextField();
+	}
+	
+	void createTextField()
+	{
+		textField[0].setEditable(false);
+		textField[0].setText(""+book.getBookId());
+		textField[1].setText(""+book.getBookName());
+		textField[2].setText(""+book.getAuthorNames());
+		textField[3].setText(""+book.getPublication());
+		textField[4].setText(""+book.getDateOfPublication());
+		textField[5].setText(""+book.getPriceOfBook());
+		textField[6].setText(""+book.getTotalQuantityToOrder());
 	}
 	
 	
@@ -88,38 +112,53 @@ public class InsertionFrame extends JFrame
         submitButton.setFont(new Font("Arial", Font.BOLD, 16));
         submitButton.setFocusPainted(false);
         
-        submitButton.addActionListener(new ActionListener() {
+        submitButton.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 Book b = new Book(Integer.parseInt(textField[0].getText()), textField[1].getText(), textField[2].getText(), textField[3].getText(), textField[4].getText(), Float.parseFloat(textField[5].getText()), Integer.parseInt(textField[6].getText()));
-
-                try {
-                    FileWriter fw = new FileWriter("book_list.dat", true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(b.getBookId() + "*" + b.getBookName() + "*" + b.getAuthorNames() + "*" + b.getPublication() + "*" + b.getDateOfPublication() + "*" + b.getPriceOfBook() + "*" + b.getTotalQuantityToOrder());
-                    bw.newLine();
-                    bw.close();
-                    fw.close();
-                } catch (Exception exp) {
-                    exp.printStackTrace();
-                }
-
-                showMessageDialog(b);
-            }});
+                updateBook(b);
+                showMessageDialog();
+            }
+        });
 	}
 	
-    void showMessageDialog(Book b)
+	void showMessageDialog()
     {
-    	JOptionPane.showMessageDialog(this, "Book Inserted:\n" +
-                "Book ID: " + b.getBookId() + "\n" +
-                "Book Name: " + b.getBookName() + "\n" +
-                "Author Names: " + b.getAuthorNames() + "\n" +
-                "Publication: " + b.getPublication() + "\n" +
-                "Date of Publication: " + b.getDateOfPublication() + "\n" +
-                "Price of Book: " + b.getPriceOfBook() + "\n" +
-                "Total Quantity to Order: " + b.getTotalQuantityToOrder() + "\n" +
-                "Total Cost: " + b.getTotalCost());
+    	JOptionPane.showMessageDialog(this, "Book Updated Successfully...!");
     }
+	
+	void updateBook(Book b)
+	{
+	    try  
+	    {
+	    	FileWriter fileWriter = new FileWriter(file);
+	    	BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+	    	
+	        for (Book bk : books) 
+	        {
+	        	if(bk.bookId == book.bookId) bk = b;
+	      
+	            bufferedWriter.write(bk.getBookId() + "*" + 
+	                         bk.getBookName() + "*" + 
+	                         bk.getAuthorNames() + "*" + 
+	                         bk.getPublication() + "*" + 
+	                         bk.getDateOfPublication() + "*" + 
+	                         bk.getPriceOfBook() + "*" + 
+	                         bk.getTotalQuantityToOrder());
+	            bufferedWriter.newLine();
+	        }
+	        
+	        bufferedWriter.close();
+	        fileWriter.close();
+	    } 
+	    catch (Exception e) 
+	    {
+	        e.printStackTrace();
+	        System.out.println("Error writing to file!");
+	    }
+	}
 
 	void createFooter()
 	{
@@ -135,4 +174,5 @@ public class InsertionFrame extends JFrame
         	panel.add(textField[i]);
         }
     }
+
 }

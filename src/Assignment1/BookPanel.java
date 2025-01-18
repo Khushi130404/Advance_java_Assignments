@@ -64,6 +64,7 @@ class BookPanel extends JPanel
             public void actionPerformed(ActionEvent e) 
             {
                 JOptionPane.showMessageDialog(null, "Update button clicked for Book ID: " + book.getBookId());
+                UpdateFrame updateFrame = new UpdateFrame(book);
             }
         });
 
@@ -104,6 +105,12 @@ class BookPanel extends JPanel
                 new JLabel("Quantity: " + book.getTotalQuantityToOrder()),
                 new JLabel("Total Cost: " + book.getTotalCost()),
         };
+    }
+    
+    public void refreshFrame() 
+    {
+        this.revalidate();
+        this.repaint();
     }
     
     Book getBook()
