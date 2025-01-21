@@ -2,6 +2,7 @@ package Assignment1;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -107,7 +108,8 @@ public class UpdateFrame extends JFrame
 	
 	void createSubmitButton()
 	{
-        submitButton.setBackground(new Color(72, 191, 227));
+        submitButton.setPreferredSize(new Dimension(300, 40));
+        submitButton.setBackground(new Color(146, 145, 194));
         submitButton.setForeground(Color.WHITE);
         submitButton.setFont(new Font("Arial", Font.BOLD, 16));
         submitButton.setFocusPainted(false);

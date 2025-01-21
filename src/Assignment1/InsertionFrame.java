@@ -1,20 +1,9 @@
 package Assignment1;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import javax.swing.*;
 
 public class InsertionFrame extends JFrame
 {
@@ -39,6 +28,7 @@ public class InsertionFrame extends JFrame
 	
 	void createFrame()
 	{
+        this.setBackground(new Color(245, 239, 255));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(700, 600);
         this.setLayout(new BorderLayout(10, 10));
@@ -83,8 +73,9 @@ public class InsertionFrame extends JFrame
 	
 	void createSubmitButton()
 	{
-        submitButton.setBackground(new Color(72, 191, 227));
         submitButton.setForeground(Color.WHITE);
+        submitButton.setPreferredSize(new Dimension(300, 40));
+        submitButton.setBackground(new Color(146, 145, 194));
         submitButton.setFont(new Font("Arial", Font.BOLD, 16));
         submitButton.setFocusPainted(false);
         
