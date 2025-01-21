@@ -28,13 +28,13 @@ class BookPanel extends JPanel
 
     void createBookPanel() 
     {
-        setBackground(new Color(255, 255, 240));
+        setBackground(new Color(245, 239, 255));
         setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 180, 250), 3),
+                BorderFactory.createLineBorder(new Color(173, 173, 209), 3),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
-        detailsPanel.setBackground(new Color(255, 255, 240));
-        buttonPanel.setBackground(new Color(255, 255, 240));
+        detailsPanel.setBackground(new Color(245, 239, 255));
+        buttonPanel.setBackground(new Color(245, 239, 255));
 
         for (JLabel label : labels) 
         {
@@ -49,11 +49,14 @@ class BookPanel extends JPanel
 
     void updateDeleteButton() 
     {
-        updateButton.setBackground(new Color(173, 216, 230));
-        deleteButton.setBackground(new Color(255, 160, 122));
+        updateButton.setBackground(new Color(146, 145, 194));
+        deleteButton.setBackground(new Color(146, 145, 194));
 
         updateButton.setFont(new Font("Arial", Font.BOLD, 14));
         deleteButton.setFont(new Font("Arial", Font.BOLD, 14));
+        
+        updateButton.setForeground(Color.WHITE);
+        deleteButton.setForeground(Color.WHITE);
 
         updateButton.setPreferredSize(new Dimension(300, 40));
         deleteButton.setPreferredSize(new Dimension(300, 40));
