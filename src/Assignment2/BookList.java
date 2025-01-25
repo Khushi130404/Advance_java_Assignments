@@ -10,25 +10,18 @@ public class BookList
     ResultSet rs;
 
 	BookList()
-	{
-		try 
-		{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/books?characterEncoding=latin1", "root", "khushi");
-	        st = con.createStatement();
-	        rs = st.executeQuery("select * from book");
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-	}
+	{}
 	
 	List<Book> readBookList()
 	{
         List<Book> books = new ArrayList<>();
         try 
         {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/books?characterEncoding=latin1", "root", "khushi");
+	        st = con.createStatement();
+	        rs = st.executeQuery("select * from book");
+	        
         	while(rs.next())
 	        {
         		Book book = new Book();
@@ -41,7 +34,10 @@ public class BookList
         		book.setTotalQuantityToOrder(rs.getInt(7));
         		books.add(book);
 	        }
-
+        	
+        	rs.close();
+        	st.close();
+        	con.close();
         } 
         catch (Exception exp) 
         {

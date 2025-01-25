@@ -1,26 +1,17 @@
 package Assignment2;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.List;
-
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class BookDeletion 
 {
-	BookList bookList;
-    File file;
-    List<Book> books;
+    Connection con;
     Book book;
+	PreparedStatement prs;
 
-	
 	public BookDeletion(Book book) 
 	{
 		this.book = book;
-		this.file = new File("book_list.dat");
-		this.bookList = new BookList();
-		books = bookList.readBookList();
 	}
 	
 	public int showDeleteConfirmation() 
@@ -38,25 +29,13 @@ public class BookDeletion
 	{
 	    try  
 	    {
-	    	FileWriter fileWriter = new FileWriter(file);
-	    	BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-	    	
-	        for (Book b : books) 
-	        {
-	        	if(b.bookId == book.bookId) continue;
-	      
-	            bufferedWriter.write(b.getBookId() + "*" + 
-	                         b.getBookName() + "*" + 
-	                         b.getAuthorNames() + "*" + 
-	                         b.getPublication() + "*" + 
-	                         b.getDateOfPublication() + "*" + 
-	                         b.getPriceOfBook() + "*" + 
-	                         b.getTotalQuantityToOrder());
-	            bufferedWriter.newLine();
-	        }
-	        
-	        bufferedWriter.close();
-	        fileWriter.close();
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/books?characterEncoding=latin1", "root", "khushi");
+            prs = con.prepareStatement("delete from book where bookId = ?");
+        	prs.setInt(1, book.getBookId());
+            prs.execute();
+            prs.close();
+            con.close();
 	    } 
 	    catch (Exception e) 
 	    {
