@@ -28,7 +28,7 @@ public class BookInsertion
             prs.setDouble(6, book.getPriceOfBook());
             prs.setInt(7, book.getTotalQuantityToOrder());
             prs.setDouble(8, book.getTotalCost());
-            prs.executeUpdate();
+            prs.execute();
             prs.close();
             con.close();
 		} 

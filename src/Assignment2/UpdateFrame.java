@@ -120,7 +120,8 @@ public class UpdateFrame extends JFrame
             public void actionPerformed(ActionEvent e) 
             {
                 Book b = new Book(Integer.parseInt(textField[0].getText()), textField[1].getText(), textField[2].getText(), textField[3].getText(), textField[4].getText(), Float.parseFloat(textField[5].getText()), Integer.parseInt(textField[6].getText()));
-                updateBook(b);
+                BookUpdatation bookUpdatation = new BookUpdatation(b);
+                bookUpdatation.updateBook();
                 showMessageDialog();
             }
         });
@@ -131,37 +132,6 @@ public class UpdateFrame extends JFrame
     	JOptionPane.showMessageDialog(this, "Book Updated Successfully...!");
     }
 	
-	void updateBook(Book b)
-	{
-	    try  
-	    {
-	    	FileWriter fileWriter = new FileWriter(file);
-	    	BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-	    	
-	        for (Book bk : books) 
-	        {
-	        	if(bk.bookId == book.bookId) bk = b;
-	      
-	            bufferedWriter.write(bk.getBookId() + "*" + 
-	                         bk.getBookName() + "*" + 
-	                         bk.getAuthorNames() + "*" + 
-	                         bk.getPublication() + "*" + 
-	                         bk.getDateOfPublication() + "*" + 
-	                         bk.getPriceOfBook() + "*" + 
-	                         bk.getTotalQuantityToOrder());
-	            bufferedWriter.newLine();
-	        }
-	        
-	        bufferedWriter.close();
-	        fileWriter.close();
-	    } 
-	    catch (Exception e) 
-	    {
-	        e.printStackTrace();
-	        System.out.println("Error writing to file!");
-	    }
-	}
-
 	void createFooter()
 	{
 	    footerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
