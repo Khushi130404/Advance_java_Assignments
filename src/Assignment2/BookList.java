@@ -1,24 +1,24 @@
 package Assignment2;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.sql.*;
+import java.util.*;
 
-public class BookList {
+public class BookList 
+{
+    Connection con;
+    Statement st;
+    ResultSet rs;
 
-    FileReader fileReader;
-    BufferedReader bufferedReader;
 	BookList()
 	{
 		try 
 		{
-			fileReader = new FileReader("book_list.dat");
-			bufferedReader = new BufferedReader(fileReader);
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/books?characterEncoding=latin1", "root", "khushi");
+	        st = con.createStatement();
+	        rs = st.executeQuery("select * from book");
 		} 
-		catch (FileNotFoundException e) 
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
@@ -29,23 +29,19 @@ public class BookList {
         List<Book> books = new ArrayList<>();
         try 
         {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) 
-            {
-                StringTokenizer st = new StringTokenizer(line, "*");
-                Book b = new Book(
-                    Integer.parseInt(st.nextToken()),
-                    st.nextToken(),
-                    st.nextToken(),
-                    st.nextToken(),
-                    st.nextToken(),
-                    Float.parseFloat(st.nextToken()),
-                    Integer.parseInt(st.nextToken())
-                );
-                books.add(b);
-            }
-            bufferedReader.close();
-            fileReader.close();
+        	while(rs.next())
+	        {
+        		Book book = new Book();
+        		book.setBookId(rs.getInt(1));
+        		book.setBookName(rs.getString(2));
+        		book.setAuthorNames(rs.getString(3));
+        		book.setPublication(rs.getString(4));
+        		book.setDateOfPublication(rs.getString(5));
+        		book.setPriceOfBook(rs.getFloat(6));
+        		book.setTotalQuantityToOrder(rs.getInt(7));
+        		books.add(book);
+	        }
+
         } 
         catch (Exception exp) 
         {
