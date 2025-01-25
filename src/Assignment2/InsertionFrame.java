@@ -83,18 +83,8 @@ public class InsertionFrame extends JFrame
             @Override
             public void actionPerformed(ActionEvent e) {
                 Book b = new Book(Integer.parseInt(textField[0].getText()), textField[1].getText(), textField[2].getText(), textField[3].getText(), textField[4].getText(), Float.parseFloat(textField[5].getText()), Integer.parseInt(textField[6].getText()));
-
-                try {
-                    FileWriter fw = new FileWriter("book_list.dat", true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(b.getBookId() + "*" + b.getBookName() + "*" + b.getAuthorNames() + "*" + b.getPublication() + "*" + b.getDateOfPublication() + "*" + b.getPriceOfBook() + "*" + b.getTotalQuantityToOrder());
-                    bw.newLine();
-                    bw.close();
-                    fw.close();
-                } catch (Exception exp) {
-                    exp.printStackTrace();
-                }
-
+                BookInsertion bookInsertion = new BookInsertion(b);
+                bookInsertion.insertBook();
                 showMessageDialog(b);
             }});
 	}
