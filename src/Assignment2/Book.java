@@ -8,7 +8,6 @@ public class Book {
 	String dateOfPublication;
 	float priceOfBook;
 	int totalQuantityToOrder;
-	float totalCost;
 	
 	Book(){}
 	
@@ -21,7 +20,6 @@ public class Book {
 		this.dateOfPublication = dateOfPublication;
 		this.priceOfBook = priceOfBook;
 		this.totalQuantityToOrder = totalQuantityToOrder;
-		this.totalCost = totalQuantityToOrder*priceOfBook;
 	}
 	
 	public int getBookId() {
@@ -70,7 +68,6 @@ public class Book {
 
 	public void setPriceOfBook(float priceOfBook) {
 		this.priceOfBook = priceOfBook;
-		this.totalCost = priceOfBook*getTotalQuantityToOrder();
 	}
 
 	public int getTotalQuantityToOrder() {
@@ -79,11 +76,5 @@ public class Book {
 
 	public void setTotalQuantityToOrder(int totalQuantityToOrder) {
 		this.totalQuantityToOrder = totalQuantityToOrder;
-		this.totalCost = totalQuantityToOrder*getPriceOfBook();
 	}
-
-	public float getTotalCost() {
-		return totalCost;
-	}
-	
 }
