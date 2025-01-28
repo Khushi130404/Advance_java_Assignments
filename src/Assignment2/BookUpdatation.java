@@ -27,7 +27,7 @@ public class BookUpdatation
             prs.setString(4, book.getDateOfPublication());
             prs.setDouble(5, book.getPriceOfBook());
             prs.setInt(6, book.getTotalQuantityToOrder());
-            prs.setInt(8, book.getBookId());
+            prs.setInt(7, book.getBookId());
             prs.execute();
             prs.close();
             cst = con.prepareCall("{ call set_total_cost(?) }");
