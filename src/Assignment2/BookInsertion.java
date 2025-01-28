@@ -7,6 +7,7 @@ public class BookInsertion
     Connection con;
     Book book;
 	PreparedStatement prs;
+	CallableStatement cst;
     
     public BookInsertion(Book book) 
     {
@@ -29,6 +30,10 @@ public class BookInsertion
             prs.setInt(7, book.getTotalQuantityToOrder());
             prs.execute();
             prs.close();
+            cst = con.prepareCall("{ call set_total_cost(?) }");
+            cst.setInt(1, book.getBookId());
+            cst.execute();
+            cst.close();
             con.close();
 		} 
         catch (Exception e)
