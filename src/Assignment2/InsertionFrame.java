@@ -98,8 +98,7 @@ public class InsertionFrame extends JFrame
                 "Publication: " + b.getPublication() + "\n" +
                 "Date of Publication: " + b.getDateOfPublication() + "\n" +
                 "Price of Book: " + b.getPriceOfBook() + "\n" +
-                "Total Quantity to Order: " + b.getTotalQuantityToOrder() + "\n" +
-                "Total Cost: " + b.getTotalCost());
+                "Total Quantity to Order: " + b.getTotalQuantityToOrder());
     }
 
 	void createFooter()
