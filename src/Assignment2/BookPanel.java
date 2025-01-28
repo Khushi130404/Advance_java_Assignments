@@ -106,7 +106,7 @@ class BookPanel extends JPanel
                 new JLabel("Date: " + book.getDateOfPublication()),
                 new JLabel("Price: " + book.getPriceOfBook()),
                 new JLabel("Quantity: " + book.getTotalQuantityToOrder()),
-                new JLabel("Total Cost: " + book.getTotalCost()),
+                new JLabel("Total Cost: " + book.getTotalQuantityToOrder()*book.getPriceOfBook()),
         };
     }
     
