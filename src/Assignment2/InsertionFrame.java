@@ -1,9 +1,25 @@
 package Assignment2;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class InsertionFrame extends JFrame
 {
@@ -61,16 +77,119 @@ public class InsertionFrame extends JFrame
         panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 	}
 	
-	void createLabel()
+	void createLabel() 
 	{
-		for(int i=0; i<label.length; i++)
-        {
-        	label[i] = new JLabel(labelText[i]);
-        	textField[i] = new JTextField();
-        }
+	    for (int i = 0; i < label.length; i++) 
+	    {
+	        label[i] = new JLabel(labelText[i]);
+	        textField[i] = new JTextField();
+
+	        final int index = i; 
+	        textField[i].addFocusListener(new FocusListener() 
+	        {
+	            @Override
+	            public void focusGained(FocusEvent e) 
+	            {
+	                JTextField field = (JTextField) e.getSource();
+	                field.setBackground(Color.WHITE); 
+	            }
+
+	            @Override
+	            public void focusLost(FocusEvent e) 
+	            {
+	                validateField((JTextField) e.getSource(), index);
+	            }
+	        });
+	    }
 	}
+
 	
-	
+	void validateField(JTextField field, int index) 
+	{
+	    String text = field.getText().trim();
+
+	    if (text.isEmpty()) 
+	    {
+	        setError(field, "This field cannot be empty!");
+	        return;
+	    }
+
+	    try 
+	    {
+	        switch (index) 
+	        {
+	            case 0: 
+	                int bookId = Integer.parseInt(text);
+	                if (bookId <= 0) 
+	                {
+	                    setError(field, "Book ID must be a positive integer!");
+	                    return;
+	                }
+	                break;
+
+	            case 4: 
+	            	if (!text.matches("\\d{4}-\\d{2}-\\d{2}")) {
+	                    setError(field, "Date must be in yyyy-mm-dd format!");
+	                    return;
+	                }
+	                
+	                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	                sdf.setLenient(false); 
+					Date inputDate;
+					try 
+					{
+						Date today = new Date();  
+						inputDate = sdf.parse(text);
+						if (inputDate.after(today)) {
+		                    setError(field, "Date cannot be in the future!");
+		                    return;
+		                }
+					} 
+					catch (ParseException e) 
+					{
+						e.printStackTrace();
+					}
+	                Date today = new Date(); 
+
+	                
+	                break;
+
+	            case 5: 
+	                float price = Float.parseFloat(text);
+	                if (price <= 0) 
+	                {
+	                    setError(field, "Price must be a positive number!");
+	                    return;
+	                }
+	                break;
+
+	            case 6: 
+	                int quantity = Integer.parseInt(text);
+	                if (quantity <= 0) 
+	                {
+	                    setError(field, "Quantity must be a positive integer!");
+	                    return;
+	                }
+	                break;
+	        }
+	    } 
+	    catch (NumberFormatException e) 
+	    {
+	        setError(field, "Invalid input format!");
+	        return;
+	    }
+
+	    field.setBackground(Color.WHITE);
+	    field.setToolTipText(null);
+	}
+
+	void setError(JTextField field, String message) 
+	{
+	    field.setBackground(Color.PINK);
+	    field.setToolTipText(message); 
+	}
+
+
 	void createSubmitButton()
 	{
         submitButton.setForeground(Color.WHITE);
@@ -78,15 +197,28 @@ public class InsertionFrame extends JFrame
         submitButton.setBackground(new Color(146, 145, 194));
         submitButton.setFont(new Font("Arial", Font.BOLD, 16));
         submitButton.setFocusPainted(false);
-        
-        submitButton.addActionListener(new ActionListener() {
+        submitButton.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 Book b = new Book(Integer.parseInt(textField[0].getText()), textField[1].getText(), textField[2].getText(), textField[3].getText(), textField[4].getText(), Float.parseFloat(textField[5].getText()), Integer.parseInt(textField[6].getText()));
                 BookInsertion bookInsertion = new BookInsertion(b);
                 bookInsertion.insertBook();
                 showMessageDialog(b);
-            }});
+            }
+         });
+	}
+	
+	boolean validateAllFields() 
+	{
+	    for (int i = 0; i < textField.length; i++) 
+	    {
+	        validateField(textField[i], i);
+	        if (textField[i].getBackground() == Color.PINK) 
+	            return false; 
+	    }
+	    return true;
 	}
 	
     void showMessageDialog(Book b)

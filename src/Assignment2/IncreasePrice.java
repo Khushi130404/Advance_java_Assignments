@@ -32,7 +32,5 @@ public class IncreasePrice
         {
 			e.printStackTrace();
 		}
-
 	}
-
 }
