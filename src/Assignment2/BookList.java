@@ -45,4 +45,25 @@ public class BookList
         }
         return books;
 	}
+	
+	int getCurrentBookId()
+	{
+		int bookId = 0;
+        try 
+        {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/books?characterEncoding=latin1", "root", "khushi");
+	        st = con.createStatement();
+	        rs = st.executeQuery("select max(bookId) from book");
+	        if(rs.next()) bookId = rs.getInt(1);   
+        	rs.close();
+        	st.close();
+        	con.close();
+        } 
+        catch (Exception exp) 
+        {
+            exp.printStackTrace();
+        }
+    	return bookId+1;
+	}
 }
