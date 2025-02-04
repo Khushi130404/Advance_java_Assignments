@@ -43,11 +43,9 @@ public class DisplayFrame extends JFrame
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout());
         headerPanel.setBackground(new Color(245, 245, 250)); 
-
         headingLabel.setFont(new Font("Arial", Font.BOLD, 28));
         headingLabel.setForeground(new Color(0, 0, 0)); 
         headerPanel.add(headingLabel, BorderLayout.CENTER);
-
         addBookButton = new JButton("+");      
         addBookButton.setFont(new Font("Arial", Font.BOLD, 28));
         addBookButton.setPreferredSize(new Dimension(50, 50));
@@ -57,14 +55,15 @@ public class DisplayFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				InsertionFrame insertionFrame = new InsertionFrame();
+				new InsertionFrame(() -> refreshFrame());
+				refreshFrame();
 			}
 		});
 
         incPriceButton = new JButton("↑");      
-        incPriceButton.setFont(new Font("Arial", Font.BOLD, 30));
+        incPriceButton.setFont(new Font("Arial", Font.BOLD, 28));
         incPriceButton.setPreferredSize(new Dimension(50, 50));
-        
+       
         incPriceButton.addActionListener(new ActionListener() 
         {	
 			@Override
@@ -86,7 +85,7 @@ public class DisplayFrame extends JFrame
 
         headerPanel.add(buttonPanelRight, BorderLayout.EAST);
         headerPanel.add(buttonPanelLeft, BorderLayout.WEST);
-        
+     
         this.add(headerPanel, BorderLayout.NORTH);
     }
 
@@ -108,7 +107,6 @@ public class DisplayFrame extends JFrame
         mainPanel.repaint();
     }
 
-    
     void createBookPanels() 
     {
         for (Book book : books) 

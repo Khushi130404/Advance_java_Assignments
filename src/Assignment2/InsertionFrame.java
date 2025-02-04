@@ -30,9 +30,12 @@ public class InsertionFrame extends JFrame
     JTextField textField[];
     JButton submitButton;
     JPanel footerPanel;
+    private Runnable refreshCallback; 
 
-	public InsertionFrame() 
+
+	public InsertionFrame(Runnable refreshCallback) 
 	{
+        this.refreshCallback = refreshCallback;
 		this.headerLabel = new JLabel("Insert New Book Details", JLabel.CENTER);
 		this.panel = new JPanel();	
 		this.label = new JLabel[labelText.length];
@@ -44,8 +47,8 @@ public class InsertionFrame extends JFrame
 	
 	void createFrame()
 	{
+	    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         this.setBackground(new Color(245, 239, 255));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(700, 600);
         this.setLayout(new BorderLayout(10, 10));
         createComponents();
@@ -83,7 +86,14 @@ public class InsertionFrame extends JFrame
 	    {
 	        label[i] = new JLabel(labelText[i]);
 	        textField[i] = new JTextField();
-
+	        
+	        if(i==0)
+	        {
+	        	BookList bookList = new BookList();
+	        	textField[i].setText(""+bookList.getCurrentBookId());
+	        	textField[i].setEditable(false);
+	        }
+	        
 	        final int index = i; 
 	        textField[i].addFocusListener(new FocusListener() 
 	        {
@@ -231,6 +241,9 @@ public class InsertionFrame extends JFrame
                 "Date of Publication: " + b.getDateOfPublication() + "\n" +
                 "Price of Book: " + b.getPriceOfBook() + "\n" +
                 "Total Quantity to Order: " + b.getTotalQuantityToOrder());
+    	
+    	if (refreshCallback != null) refreshCallback.run();  
+    	this.dispose();
     }
 
 	void createFooter()
