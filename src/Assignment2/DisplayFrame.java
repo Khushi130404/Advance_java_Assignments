@@ -13,6 +13,7 @@ public class DisplayFrame extends JFrame
     JScrollPane scrollPane;
     JLabel headingLabel;
     JButton addBookButton;
+    JButton incPriceButton;
 
     public DisplayFrame(List<Book> books) 
     {
@@ -20,6 +21,7 @@ public class DisplayFrame extends JFrame
         this.mainPanel = new JPanel();
         this.headingLabel = new JLabel("Books Display", JLabel.CENTER);
         this.addBookButton = new JButton("Add New Book");
+        this.incPriceButton = new JButton("Increase Price of Book");
         scrollPane = new JScrollPane(mainPanel);
         createFrame();
     }
@@ -58,11 +60,33 @@ public class DisplayFrame extends JFrame
 				InsertionFrame insertionFrame = new InsertionFrame();
 			}
 		});
+
+        incPriceButton = new JButton("↑");      
+        incPriceButton.setFont(new Font("Arial", Font.BOLD, 30));
+        incPriceButton.setPreferredSize(new Dimension(50, 50));
         
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(245, 245, 250));
-        buttonPanel.add(addBookButton); 
-        headerPanel.add(buttonPanel, BorderLayout.EAST);
+        incPriceButton.addActionListener(new ActionListener() 
+        {	
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				IncreasePrice increasePrice = new IncreasePrice();	
+		        JOptionPane.showMessageDialog(null, "Book prices have been updated!", "Price Update", JOptionPane.INFORMATION_MESSAGE);
+		        refreshFrame();
+			}
+		});
+        
+        JPanel buttonPanelRight = new JPanel();
+        buttonPanelRight.setBackground(new Color(245, 245, 250));
+        buttonPanelRight.add(addBookButton);
+
+        JPanel buttonPanelLeft = new JPanel();
+        buttonPanelLeft.setBackground(new Color(245, 245, 250));
+        buttonPanelLeft.add(incPriceButton);
+
+        headerPanel.add(buttonPanelRight, BorderLayout.EAST);
+        headerPanel.add(buttonPanelLeft, BorderLayout.WEST);
+        
         this.add(headerPanel, BorderLayout.NORTH);
     }
 
@@ -74,6 +98,17 @@ public class DisplayFrame extends JFrame
         mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
     }
 
+    void refreshFrame() 
+    {
+        BookList booklist = new BookList();
+        books = booklist.readBookList();
+        mainPanel.removeAll(); 
+        createBookPanels();
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
+    
     void createBookPanels() 
     {
         for (Book book : books) 
