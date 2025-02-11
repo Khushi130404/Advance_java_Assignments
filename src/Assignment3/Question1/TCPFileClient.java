@@ -5,16 +5,13 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-//172.24.11.98 - Khushi
-// 192.168.93.52 - Sahil
-
 public class TCPFileClient 
 {
 	public static void main(String[] args) 
 	{
 		try
 		{
-			Socket socket = new Socket("192.168.93.52",5001);
+			Socket socket = new Socket("localhost",5001);
 			DataInputStream dis = new DataInputStream(socket.getInputStream());
 			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 			System.out.println("Connection Established");
