@@ -27,12 +27,16 @@ public class DecryptFile
 			String fileName = brFile.readLine();
 			ps.println(fileName);
 			brFile.close();
+			ps.close();
 			
 			String line = "";
-			while((line=br.readLine())!=null)
+			while(!(line=br.readLine()).equalsIgnoreCase("EOF"))
 			{
-				
+				String decrLine = decrypt(line);
+				System.out.print(decrLine);
 			}
+			br.close();
+			socket.close();
 		}
 		catch (Exception e) 
 		{
