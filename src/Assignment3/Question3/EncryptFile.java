@@ -21,9 +21,9 @@ public class EncryptFile
 		try
 		{
 			ServerSocket serverSocket = new ServerSocket(5421);
-			System.out.print("Waiting for client....");
+			System.out.println("Waiting for client....");
 			Socket socket = serverSocket.accept();
-			System.out.print("Client Connected");
+			System.out.println("Client Connected");
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintStream ps = new PrintStream(socket.getOutputStream());
@@ -43,8 +43,7 @@ public class EncryptFile
 			fileReader.close();
 			ps.close();
 			br.close();
-			// socket.close();
-			// serverSocket.close();
+			socket.shutdownOutput();
 		}
 		catch(Exception e)
 		{
