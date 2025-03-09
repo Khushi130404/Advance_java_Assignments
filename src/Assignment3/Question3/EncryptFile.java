@@ -38,6 +38,7 @@ public class EncryptFile
 				String encryptedLine = encrypt(line);
 				ps.println(encryptedLine);
 			}
+			ps.println("EOF");
 			brFile.close();
 			fileReader.close();
 			ps.close();
