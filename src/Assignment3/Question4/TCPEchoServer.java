@@ -20,13 +20,13 @@ public class TCPEchoServer
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
 			String line = "";
-			while(!(line=br.readLine()).equalsIgnoreCase("END"))
+			while(!(line=br.readLine()).equalsIgnoreCase("END") && !socket.isClosed())
 			{
 				System.out.println(line);
 			}
 			
 			br.close();
-			socket.shutdownOutput();
+//			socket.shutdownOutput();
 		}
 		catch (Exception e) 
 		{
