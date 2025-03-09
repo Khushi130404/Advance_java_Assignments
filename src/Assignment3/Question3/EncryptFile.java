@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Base64;
 
 public class EncryptFile 
 {
@@ -26,6 +27,11 @@ public class EncryptFile
 		return fileContent;
 	}
 	
+	 public static String encrypt(String content) 
+	 {
+		 return Base64.getEncoder().encodeToString(content.getBytes());
+	 }
+	
 	public static void main(String[] args) 
 	{
 		try
@@ -40,7 +46,7 @@ public class EncryptFile
 			
 			String fileName = br.readLine();
 			String fileContent = readFile(fileName);
-			
+			fileContent = encrypt(fileContent);
 		}
 		catch(Exception e)
 		{
