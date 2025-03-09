@@ -11,22 +11,6 @@ import java.util.Base64;
 
 public class EncryptFile 
 {
-	public static String readFile(String fileName)throws Exception
-	{
-		File file = new File(fileName);
-		FileReader fileReader = new FileReader(file);
-		BufferedReader brFile = new BufferedReader(fileReader);
-		String fileContent = "";
-		String fc = "";
-		while((fc = brFile.readLine())!=null)
-		{
-			fileContent+=("\n"+fc);
-		}
-		brFile.close();
-		fileReader.close();
-		return fileContent;
-	}
-	
 	 public static String encrypt(String content) 
 	 {
 		 return Base64.getEncoder().encodeToString(content.getBytes());
@@ -45,15 +29,25 @@ public class EncryptFile
 			PrintStream ps = new PrintStream(socket.getOutputStream());
 			
 			String fileName = br.readLine();
-			String fileContent = readFile(fileName);
-			fileContent = encrypt(fileContent);
+			File file = new File(fileName);
+			FileReader fileReader = new FileReader(file);
+			BufferedReader brFile = new BufferedReader(fileReader);
+			String line = "";
+			while((line = brFile.readLine())!=null)
+			{
+				String encryptedLine = encrypt(line);
+				ps.println(encryptedLine);
+			}
+			brFile.close();
+			fileReader.close();
+			ps.close();
+			br.close();
+			// socket.close();
+			// serverSocket.close();
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		
-
 	}
-
 }
