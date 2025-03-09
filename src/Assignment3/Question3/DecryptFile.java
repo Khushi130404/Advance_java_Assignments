@@ -4,9 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Base64;
 
 public class DecryptFile 
 {
+	public static String decrypt(String encryptedContent) 
+	{
+        return new String(Base64.getDecoder().decode(encryptedContent));
+    }
+	
 	public static void main(String[] args) 
 	{
 		try
