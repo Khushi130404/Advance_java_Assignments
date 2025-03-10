@@ -14,7 +14,7 @@ public class MulticastFileSender
 	{
         try 
         {
-            InetAddress ip = InetAddress.getByName("localhost");
+            InetAddress ip = InetAddress.getByName("172.24.11.98");
             InetSocketAddress groupAddr = new InetSocketAddress(ip, 2001);
             MulticastSocket server = new MulticastSocket();
             server.joinGroup(groupAddr, null);
