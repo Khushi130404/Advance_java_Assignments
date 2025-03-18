@@ -33,7 +33,7 @@ class Server
                 {
                     req = dataInputStream.readUTF();
                     System.out.println("Request received for file: " + req);
-                    file = new File("../" + req);
+                    file = new File(req);
                     if(file.exists()) 
                     {
                         fileInputStream = new FileInputStream(file);
