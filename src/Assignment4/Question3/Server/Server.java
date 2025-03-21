@@ -10,8 +10,8 @@ public class Server
         try 
         {
             SystemInfo systemInfo = new SystemInfoClass();
-            LocateRegistry.createRegistry(1008); 
-            Naming.rebind("rmi://localhost/SystemInfo", systemInfo);
+            LocateRegistry.createRegistry(1099); 
+            Naming.bind("sys", systemInfo);
             System.out.println("System Info RMI Server is running...");
         } 
         catch (Exception e) 

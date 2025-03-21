@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class SystemInfoClass extends UnicastRemoteObject implements SystemInfo 
 {
-
     protected SystemInfoClass() throws RemoteException 
     {
         super();
