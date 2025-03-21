@@ -58,5 +58,4 @@ public class BookStoreClass extends UnicastRemoteObject implements BookStore
 		}
 		return this;
 	}
-
 }
