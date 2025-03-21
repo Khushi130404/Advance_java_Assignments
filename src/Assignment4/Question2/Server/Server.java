@@ -11,7 +11,7 @@ public class Server
         {
             BookStore bookStore = new BookStoreClass();
             Registry reg = LocateRegistry.createRegistry(1304);
-            reg.bind("book", bookStore);
+            reg.bind("b", bookStore);
             System.out.println("Server is running...");
         } 
         catch (Exception e) 

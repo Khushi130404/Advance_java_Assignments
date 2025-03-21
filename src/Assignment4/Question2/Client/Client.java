@@ -1,8 +1,10 @@
 package Assignment4.Question2.Client;
 
+import Assignment4.Question2.Server.BookStore;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +15,8 @@ public class Client
 	{
         try 
         {
-            BookStore bookStore = (BookStore) Naming.lookup("rmi://localhost:1304/book");
+        	Registry registry = LocateRegistry.getRegistry("localhost", 1304);
+        	BookStore bookStore = (BookStore) registry.lookup("b");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.print("Enter the Book ID : ");
             int bookId = Integer.parseInt(br.readLine());
@@ -25,8 +28,10 @@ public class Client
             } 
             else 
             {
-            	for (Map<String, Object> book : books) {
-            	    for (Map.Entry<String, Object> entry : book.entrySet()) {
+            	for (Map<String, Object> book : books) 
+            	{
+            	    for (Map.Entry<String, Object> entry : book.entrySet()) 
+            	    {
             	        String key = entry.getKey();
             	        Object value = entry.getValue();
             	        System.out.println(key + ": " + value);
