@@ -12,6 +12,7 @@ public class Server
             GetFile getFileClass = new GetFileClass(); 
             Registry reg = LocateRegistry.createRegistry(1020);
             reg.bind("gfc", getFileClass);
+            // Naming.rebind("gfc", getFileClass);
             System.out.println("Server is running...");
         } 
         catch (Exception e) 
